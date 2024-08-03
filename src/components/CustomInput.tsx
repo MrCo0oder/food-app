@@ -3,10 +3,11 @@ import {Feather} from "@expo/vector-icons";
 
 interface CustomInputProps {
   searchTerm?: string,
-  onSearchTermChange?: (term: string) => void
+  onSearchTermChange?: (term: string) => void,
+  onSearchTermSubmitted?: () => void
 }
 
-const CustomInput = ({searchTerm, onSearchTermChange}: CustomInputProps) => {
+const CustomInput = ({searchTerm, onSearchTermChange, onSearchTermSubmitted}: CustomInputProps) => {
 
   return (<View style={styles.input}>
 
@@ -19,8 +20,11 @@ const CustomInput = ({searchTerm, onSearchTermChange}: CustomInputProps) => {
 			   selectionColor='#777'
 			   style={{flex: 1}}
 			   cursorColor='#777'
+			   autoCapitalize='none'
+			   autoCorrect={false}
+			   onEndEditing={() => onSearchTermSubmitted()}
 	/>
-	<TouchableOpacity onPress={() => onSearchTermChange("")}>
+	<TouchableOpacity onPress={() => onSearchTermSubmitted()}>
 	  <Feather name="search" style={styles.iconStyle}/>
 	</TouchableOpacity>
   </View>);
