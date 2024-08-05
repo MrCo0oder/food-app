@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default axios.create({
+export const yelp=()=>axios.create({
   baseURL:'https://api.yelp.com/v3/businesses',
   headers: {
 	accept: 'application/json',

@@ -2,7 +2,7 @@ import { ScrollView, View, StyleSheet } from "react-native";
 import CustomInput from "./CustomInput";
 import ResultsList from "./ResultsList";
 import { useState } from "react";
-import { Business } from "../screens/BusinessResponse";
+import { Business } from "../screens/home/BusinessResponse";
 interface HomeBodyProps {
     results: Business[]  ,
       onCallSearch: (term: string) => Promise<void>,
@@ -27,15 +27,21 @@ const HomeBody= ({results, onCallSearch,onClick}:HomeBodyProps )=>{
         />
 
         <ResultsList
-          title={Constants.COST_EFFECTIVE}
+          title={"COST_EFFECTIVE"}
           results={filterResultsWithPrice("$")}
+          onPress={(item)=>{
+            onClick(item)
+          }}
         />
         <ResultsList
-          title={Constants.BIT_PRICIER}
+          title={"BIT_PRICIER"}
           results={filterResultsWithPrice("$$")}
+          onPress={(item)=>{
+            onClick(item)
+          }}
         />
         <ResultsList
-          title={Constants.BIG_SPENDER}
+          title={"BIG_SPENDER"}
           results={filterResultsWithPrice("$$$")}
           onPress={(item)=>{
             onClick(item)

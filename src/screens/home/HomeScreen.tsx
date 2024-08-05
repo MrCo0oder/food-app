@@ -1,12 +1,13 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 import React, { useState } from "react";
-import useResults from "../hooks/UseResults";
+import useResults from "../../hooks/UseResults";
 import { ActivityIndicator, Snackbar } from "@react-native-material/core";
-import HomeBody from "../components/HomeBody";
-import { createNavigationContainerRef } from "@react-navigation/native";
-export const navigationRef = createNavigationContainerRef();
+import HomeBody from "../../components/HomeBody";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { AppStackParamList } from "../../navigation/AppStack";
+type homeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>
 
-export function HomeScreen() {
+export function HomeScreen({navigation}:homeScreenProps) {
   const [searchApi, results, errorMessage, setErrorMessage, isLoading] =
     useResults();
   return isLoading ? (
@@ -25,7 +26,7 @@ export function HomeScreen() {
         return searchApi(term);
       }}
       onClick={(i) => {
-        
+        navigation.navigate("Details",i)
       }}
     />
   );
@@ -40,7 +41,7 @@ export function HomeScreen() {
               setErrorMessage("");
             }}
           >
-            <Text style={{ color: "#fff" }}>{Constants.DISSMISS}</Text>
+            <Text style={{ color: "#fff" }}>{"Dismiss"}</Text>
           </TouchableOpacity>
         }
         style={styles.snackBarStyle}

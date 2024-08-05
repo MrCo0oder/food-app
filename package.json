@@ -29,7 +29,9 @@
     "typescript": "~5.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@types/react-native-snap-carousel": "^3.8.11",
+    "react-native-snap-carousel": "^3.9.1"
   },
   "private": true
 }

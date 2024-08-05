@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Business } from "../screens/BusinessResponse";
+import { Business } from "../screens/home/BusinessResponse";
 
 interface ResultsListProps {
   title: string;
@@ -26,7 +26,7 @@ const ResultsList = (resultsListProps: ResultsListProps) => {
             showsHorizontalScrollIndicator={false}
             data={resultsListProps.results}
             renderItem={(i) => (
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={() => {resultsListProps.onPress(i.item)}}>
                 <View
                   style={{
                     alignItems: "stretch",

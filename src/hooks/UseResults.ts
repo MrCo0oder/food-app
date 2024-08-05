@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "../api/yelp";
-import { Business, BusinessResponse } from "../screens/BusinessResponse";
+import {yelp} from "../api/yelp";
+import { Business, BusinessResponse } from "../screens/home/BusinessResponse";
 
 export default function useResults(): [
   (search: string) => Promise<void>,
@@ -16,7 +16,7 @@ export default function useResults(): [
   const searchApi = async (search: string) => {
     setIsLoading(true);
     try {
-      const response = await axios.get<BusinessResponse>("/search", {
+      const response = await yelp().get<BusinessResponse>("/search", {
         params: {
           limit: 50,
           term: search,
