@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {yelp} from "../api/yelp";
 import { Business, BusinessResponse } from "../screens/home/BusinessResponse";
 
@@ -20,7 +20,7 @@ export default function useResults(): [
         params: {
           limit: 50,
           term: search,
-          location: "san jose",
+          location: "london",
         },
       });
       const data: BusinessResponse = response.data;

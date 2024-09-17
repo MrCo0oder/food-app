@@ -12,7 +12,7 @@ import { Business } from "../screens/home/BusinessResponse";
 interface ResultsListProps {
   title: string;
   results?: Business[];
-  onPress?: (item: Business) => void
+  onPress?: (item: Business) => void;
 }
 
 const ResultsList = (resultsListProps: ResultsListProps) => {
@@ -26,7 +26,11 @@ const ResultsList = (resultsListProps: ResultsListProps) => {
             showsHorizontalScrollIndicator={false}
             data={resultsListProps.results}
             renderItem={(i) => (
-              <TouchableOpacity onPress={() => {resultsListProps.onPress(i.item)}}>
+              <TouchableOpacity
+                onPress={() => {
+                  resultsListProps.onPress(i.item);
+                }}
+              >
                 <View
                   style={{
                     alignItems: "stretch",
@@ -50,7 +54,7 @@ const ResultsList = (resultsListProps: ResultsListProps) => {
                       borderRadius: 10,
                     }}
                   />
-                  <View style={{borderRadius:15}}>
+                  <View style={{ borderRadius: 15 }}>
                     <Text
                       style={{
                         fontWeight: "bold",

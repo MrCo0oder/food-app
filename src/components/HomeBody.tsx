@@ -28,21 +28,21 @@ const HomeBody= ({results, onCallSearch,onClick}:HomeBodyProps )=>{
 
         <ResultsList
           title={"COST_EFFECTIVE"}
-          results={filterResultsWithPrice("$")}
+          results={filterResultsWithPrice("£")}
           onPress={(item)=>{
             onClick(item)
           }}
         />
         <ResultsList
           title={"BIT_PRICIER"}
-          results={filterResultsWithPrice("$$")}
+          results={filterResultsWithPrice("££")}
           onPress={(item)=>{
             onClick(item)
           }}
         />
         <ResultsList
           title={"BIG_SPENDER"}
-          results={filterResultsWithPrice("$$$")}
+          results={filterResultsWithPrice("££££")}
           onPress={(item)=>{
             onClick(item)
           }}

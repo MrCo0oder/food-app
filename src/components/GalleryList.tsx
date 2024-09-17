@@ -1,18 +1,28 @@
 import React from "react";
-import { FlatList, Image, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface GalleryListProps {
   results: string[];
+  onPress?: (item: string) => void;
 }
-const GalleryList = ({ results }: GalleryListProps) => {
+const GalleryList = (galleryListProps: GalleryListProps) => {
   return (
     <View>
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        data={results}
+        data={galleryListProps.results}
         renderItem={(i) => (
-          <View
+          <TouchableOpacity
+            onPress={() =>
+              galleryListProps.onPress(galleryListProps.results[i.index])
+            }
             style={{
               alignItems: "stretch",
               borderRadius: 15,
@@ -34,10 +44,10 @@ const GalleryList = ({ results }: GalleryListProps) => {
               style={{
                 aspectRatio: 11 / 16,
                 width: 250,
-                borderRadius:6,
+                borderRadius: 6,
               }}
             />
-          </View>
+          </TouchableOpacity>
         )}
         keyExtractor={(_, index) => index.toString()}
       />

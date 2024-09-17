@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { SingleBusinessResponse } from "../screens/home/details/SingleBusinessResponse";
+import React, { useEffect, useState } from "react";
+import { SingleBusinessResponse } from "../screens/details/SingleBusinessResponse";
 import { yelp } from "../api/yelp";
+import { useQuery } from "react-query";
 
-export default function useDetails(): [
+export default function useDetails(
+  id: string
+): [
   SingleBusinessResponse,
   boolean,
   string,
@@ -25,5 +28,8 @@ export default function useDetails(): [
     }
   };
 
+  useEffect(() => {
+    getDetails(id);
+  }, []);
   return [result, isLoading, errorMessage, setErrorMessage, getDetails];
 }
