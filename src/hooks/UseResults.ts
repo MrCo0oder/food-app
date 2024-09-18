@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from "react";
-import {yelp} from "../api/yelp";
+import React from "react";
+import { yelp } from "../api/yelp";
 import { Business, BusinessResponse } from "../screens/home/BusinessResponse";
+import { useQuery } from "react-query";
 
-export default function useResults(): [
-  (search: string) => Promise<void>,
-  Business[],
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-  boolean
-] {
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [results, setResults] = useState<Business[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const searchApi = async (search: string) => {
-    setIsLoading(true);
-    try {
-      const response = await yelp().get<BusinessResponse>("/search", {
+export default function useResults(
+  search: string
+): [Business[], boolean, boolean, string | null, () => void] {
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch, // Destructure the refetch function
+  } = useQuery(
+    ["searchResults", search], // Dynamic query key with search term
+    () =>
+      yelp().get<BusinessResponse>("/search", {
         params: {
           limit: 50,
           term: search,
           location: "london",
         },
-      });
-      const data: BusinessResponse = response.data;
-      console.log(data.businesses);
-      setResults(data.businesses);
-    } catch (error: any) {
-      console.log(error);
-      setErrorMessage(error.message);
-    } finally {
-      setIsLoading(false);
+      }),
+    {
+      // enabled: !!search, // Avoid querying when search is empty
+      retry: 2, // Retry twice in case of failure
+      staleTime: 1000 * 60 * 5, // Cache results for 5 minutes
     }
-  };
+  );
 
-  useEffect(() => {
-    searchApi("");
-  }, []);
+  const businesses = data?.data.businesses ?? [];
 
-  return [searchApi, results, errorMessage, setErrorMessage, isLoading];
+  return [
+    businesses, // List of businesses or empty array
+    isLoading,  // Boolean indicating if data is loading
+    isError,    // Boolean indicating if there was an error
+    error instanceof Error ? error.message : "Something went wrong!",
+    refetch, // Return the refetch function to manually refresh data
+  ];
 }

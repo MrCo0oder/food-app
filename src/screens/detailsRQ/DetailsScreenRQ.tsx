@@ -12,16 +12,13 @@ import GalleryList from "../../components/GalleryList";
 import { useQuery } from "react-query";
 import { SingleBusinessResponse } from "./SingleBusinessResponse";
 import { yelp } from "../../api/yelp";
+import useDetails from "../../hooks/UseDetails";
 
 type detailsScreenProps = NativeStackScreenProps<AppStackParamList, "Details">;
 
 const DetailsScreen = ({ navigation, route }: detailsScreenProps) => {
   const item = route.params;
-  // Use the item.id in the query key to make it dynamic
-  const { isLoading, data, isError, error } = useQuery(
-    ["details", item.id],
-    () => yelp().get<SingleBusinessResponse>(`/${item.id}`)
-  );
+  const[ data,isLoading , isError, error ] = useDetails(item.id);
 
   return isLoading ? (
     <ActivityIndicator
@@ -33,7 +30,7 @@ const DetailsScreen = ({ navigation, route }: detailsScreenProps) => {
   ) : isError ? (
     <View>
       <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-        {error instanceof Error ? error.stack : "An error occurred"}
+        {error}
       </Text>
     </View>
   ) : (

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Business } from "../screens/home/BusinessResponse";
 interface HomeBodyProps {
     results: Business[]  ,
-      onCallSearch: (term: string) => Promise<void>,
+      onCallSearch: (term: string) => void,
       onClick?: (item: Business) => void
 
   }

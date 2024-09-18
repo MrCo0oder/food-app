@@ -8,8 +8,9 @@ import { AppStackParamList } from "../../navigation/AppStack";
 type homeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>
 
 export function HomeScreen({navigation}:homeScreenProps) {
-  const [searchApi, results, errorMessage, setErrorMessage, isLoading] =
-    useResults();
+  const [term,setTerm]=useState("");
+  const [ results,isLoading, isError,errorMessage,refetch] =
+    useResults(term);
   return isLoading ? (
     <ActivityIndicator
       animating={isLoading}
@@ -17,13 +18,13 @@ export function HomeScreen({navigation}:homeScreenProps) {
       color="#888"
       style={{ alignSelf: "center" } && styles.progressStyle}
     />
-  ) : errorMessage ? (
+  ) : isError ? (
     showSnackbar()
   ) : (
     <HomeBody
       results={results}
       onCallSearch={(term) => {
-        return searchApi(term);
+         return setTerm(term);
       }}
       onClick={(i) => {
         navigation.navigate("Details",i)
@@ -38,10 +39,10 @@ export function HomeScreen({navigation}:homeScreenProps) {
         action={
           <TouchableOpacity
             onPress={() => {
-              setErrorMessage("");
+              refetch()
             }}
           >
-            <Text style={{ color: "#fff" }}>{"Dismiss"}</Text>
+            <Text style={{ color: "#fff" }}>{"Retry"}</Text>
           </TouchableOpacity>
         }
         style={styles.snackBarStyle}
