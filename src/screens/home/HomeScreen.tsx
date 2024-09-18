@@ -5,6 +5,7 @@ import { ActivityIndicator, Snackbar } from "@react-native-material/core";
 import HomeBody from "../../components/HomeBody";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppStackParamList } from "../../navigation/AppStack";
+import Constants from "../../common/Constants";
 type homeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>
 
 export function HomeScreen({navigation}:homeScreenProps) {
@@ -27,7 +28,7 @@ export function HomeScreen({navigation}:homeScreenProps) {
          return setTerm(term);
       }}
       onClick={(i) => {
-        navigation.navigate("Details",i)
+        navigation.navigate(Constants.DETAILS,i)
       }}
     />
   );

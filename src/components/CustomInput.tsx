@@ -1,5 +1,6 @@
 import {StyleSheet, TextInput, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
+import Constants from "../common/Constants";
 
 interface CustomInputProps {
   searchTerm?: string,
@@ -14,7 +15,7 @@ const CustomInput = ({searchTerm, onSearchTermChange, onSearchTermSubmitted}: Cu
 	<TextInput inputMode={'search'}
 			   keyboardType={"web-search"}
 			   placeholderTextColor="#777"
-			   placeholder={"SEARCH"}
+			   placeholder={Constants.SEARCH}
 			   value={searchTerm}
 			   onChangeText={(text) => onSearchTermChange(text)}
 			   selectionColor='#777'

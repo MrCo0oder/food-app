@@ -3,6 +3,7 @@ import { HomeScreen } from "../screens/home/HomeScreen";
 import { Business } from "../screens/home/BusinessResponse";
 import DetailsScreenRQ from "../screens/detailsRQ/DetailsScreenRQ";
 import { ParamListBase } from "@react-navigation/native";
+import Constants from "../common/Constants";
 
 export interface AppStackParamList extends ParamListBase {
   Home: undefined;
@@ -14,7 +15,7 @@ export const AppStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name={Constants.HOME}
         component={HomeScreen}
         options={{
           headerTitle: "BUSINESS SEARCH",
@@ -22,7 +23,7 @@ export const AppStack = () => {
         }}
       />
       <Stack.Screen
-        name="Details"
+        name={Constants.DETAILS}
         component={DetailsScreenRQ}
         options={{
           headerTitle: "DETAILS",
